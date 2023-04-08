@@ -20,9 +20,9 @@ class score
                 }
                cout<<endl;
                if(i%3==2)
-              {
-                cout<<"-------------"<<endl;
-              }
+                {
+                  cout<<"-------------"<<endl;
+                }
             }
       }
 };
