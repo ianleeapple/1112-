@@ -13,9 +13,11 @@ public:
     }
     void generate()
     {
-       srand(time(0));
+      srand(time(0));
         board = vector<vector<int>>(9, vector<int>(9, 0));
         vector<int> nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+        // Shuffle nums using for loop
         for (int i = 0; i < 9; i++)
         {
             int j = rand() % 9;
@@ -28,6 +30,8 @@ public:
                 board[i][j] = nums[(i * 3 + i / 3 + j) % 9];
             }
         }
+
+        // Randomly remove numbers from the board
         for (int i = 0; i < 9; i++)
         {
             for (int j = 0; j < 9; j++)
@@ -39,7 +43,6 @@ public:
             }
         }
  
-        }
     }
     void print() {
         for (int i = 0; i < 9; i++)
