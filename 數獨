@@ -13,7 +13,7 @@ public:
     }
     void generate()
     {
-        srand(time(0));
+      srand(time(0));
         board = vector<vector<int>>(9, vector<int>(9, 0));
         vector<int> nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         for (int i = 0; i < 9; i++)
@@ -25,23 +25,20 @@ public:
         {
             for (int j = 0; j < 9; j++)
             {
-                if (i % 3 == 0 && j % 3 == 0)
+                board[i][j] = nums[(i * 3 + i / 3 + j) % 9];
+            }
+        }
+        for (int i = 0; i < 9; i++)
+        {
+            for (int j = 0; j < 9; j++)
+            {
+                if (rand() % 2 == 0)
                 {
-                    int k = 0;
-                    for (int x = i; x < i + 3; x++)
-                    {
-                        for (int y = j; y < j + 3; y++)
-                        {
-                            board[x][y] = nums[k++];
-                        }
-                    }
-                    for (int l = 0; l < 9; l++)
-                    {
-                        int m = rand() % 9;
-                        swap(nums[l], nums[m]);
-                    }
+                    board[i][j] = 0;
                 }
             }
+        }
+ 
         }
         for (int i = 0; i < 9; i++)
         {
