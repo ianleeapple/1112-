@@ -92,7 +92,29 @@ public:
         }
         return false;
     }
-      
+   
+   bool solve()
+   {
+        int row,col;
+        if(!findEmptyCell(row,col))
+        {
+             return true;
+        }
+        for(int i=1;i<=9;i++)
+        {
+            if(isValid(row,col,i))
+            {
+                board[row][col]=i;
+                if(solve())
+                {
+                    return true;
+                }
+                board[row][col]=0;
+            }
+        }
+        return false;
+    }
+    
  };
 int main()
 {
