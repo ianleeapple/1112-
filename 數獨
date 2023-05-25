@@ -114,7 +114,49 @@ public:
         }
         return false;
     }
-    
+    void play()
+    {
+        int row, col, num;
+        while (findEmptyCell(row, col))
+        {
+            cout << "第" << row + 1 << "列 " << col + 1 << " 行 ";
+            cin >> num;
+
+            if (num < 1 || num > 9)
+            {
+                cout << "请输入1到9之间的数字" << endl;
+                continue;
+            }
+
+            if (!isValid(row, col, num))
+            {
+                cout << "输入的数字不符合数独规则，请重新输入" << endl;
+                continue;
+            }
+
+            board[row][col] = num;
+            print();
+
+            Sudoku tempBoard = *this;
+            if (!tempBoard.solve())
+            {
+                cout << "请重新输入" << endl;
+                board[row][col] = 0;
+                print();
+                continue;
+            }
+        }
+
+        if (solve())
+        {
+            cout << "太棒了" << endl;
+            print();
+        }
+        else
+        {
+            cout << "请重新输入" << endl;
+        }
+    }
  };
 int main()
 {
