@@ -12,11 +12,11 @@ private:
     vector<vector<int>> board;
 public:
     Sudoku();
-    void generate();
     void print();
+    void generate();
     bool isValid(int row, int col, int num);
-    bool findEmptyCell(int& row, int& col);
     bool solve();
+    bool findEmptyCell(int& row, int& col);
     void play();
 };
 #endif
