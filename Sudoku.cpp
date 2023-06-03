@@ -9,6 +9,17 @@ Sudoku::Sudoku()
 {
 
 }
+void Sudoku::print()
+{
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 9; j++)
+        {
+            cout << board[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
 void Sudoku::generate()
 {
     srand(time(0));
@@ -36,30 +47,20 @@ void Sudoku::generate()
             }
         }
     }
-}
-void Sudoku::print()
-{
-    for (int i = 0; i < 9; i++)
-    {
-        for (int j = 0; j < 9; j++)
-        {
-            cout << board[i][j] << " ";
-        }
-        cout << endl;
-    }
+
 }
 bool Sudoku::isValid(int row, int col, int num)
 {
     for (int i = 0; i < 9; i++)
     {
-        if (board[row][i] = num)
+        if (board[row][i] == num)
         {
             return false;
         }
     }
     for (int i = 0; i < 9; i++)
     {
-        if (board[i][col] = num)
+        if (board[i][col] == num)
         {
             return false;
         }
@@ -70,11 +71,38 @@ bool Sudoku::isValid(int row, int col, int num)
     {
         for (int j = box_col; j < box_col + 3; j++)
         {
-            if (board[i][j] = num) return false;
+            if (board[i][j] == num)
+            {
+                return false;
+            }
         }
     }
     return true;
 }
+bool Sudoku::solve()
+{
+    int row, col;
+    if (!findEmptyCell(row, col))
+    {
+        return true;
+    }
+
+    for (int num = 1; num <= 9; num++)
+    {
+        if (isValid(row, col, num))
+        {
+            board[row][col] = num;
+            if (solve())
+            {
+                return true;
+            }
+            board[row][col] = 0;
+        }
+    }
+
+    return false;
+}
+
 bool Sudoku::findEmptyCell(int& row, int& col)
 {
     for (row = 0; row < 9; row++)
@@ -89,38 +117,17 @@ bool Sudoku::findEmptyCell(int& row, int& col)
     }
     return false;
 }
-bool Sudoku::solve()
-{
-    int row, col;
-    if (!findEmptyCell(row, col))
-    {
-        return true;
-    }
-    for (int i = 1; i <= 9; i++)
-    {
-        if (isValid(row, col, i))
-        {
-            board[row][col] = i;
-            if (solve())
-            {
-                return true;
-            }
-            board[row][col] = 0;
-        }
-    }
-    return false;
-}
 void Sudoku::play()
 {
     int row, col, num;
     while (findEmptyCell(row, col))
     {
-        cout << "第" << row + 1 << "列 " << col + 1 << " 行 ";
+        cout << "第" << row + 1 << "列" << col + 1 << "行";
         cin >> num;
 
         if (num < 1 || num > 9)
         {
-            cout << "請輸入1到9之間的數字" << endl;
+            cout << "請輸入數字1到9" << endl;
             continue;
         }
 
@@ -129,6 +136,7 @@ void Sudoku::play()
             cout << "輸入的數字不符合數獨規則，請重新輸入" << endl;
             continue;
         }
+
         board[row][col] = num;
         print();
 
@@ -151,3 +159,4 @@ void Sudoku::play()
         cout << "請重新輸入" << endl;
     }
 }
+
